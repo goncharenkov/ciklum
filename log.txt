@@ -1,0 +1,133 @@
+Microsoft Windows [Version 10.0.17763.557]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\Vadym_Honcharenko>cd ../..
+
+C:\>cd ciklum
+
+C:\ciklum>mvn clean install -DskipTests
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ----------------------< ciklum-test:ciklum-test >-----------------------
+[INFO] Building ciklum-test 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ciklum-test ---
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ciklum-test ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\ciklum\src\main\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:2.5.1:compile (default-compile) @ ciklum-test ---
+[INFO] No sources to compile
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ciklum-test ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.5.1:testCompile (default-testCompile) @ ciklum-test ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 5 source files to C:\ciklum\target\test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.18:test (default-test) @ ciklum-test ---
+[INFO] Tests are skipped.
+[INFO]
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ ciklum-test ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\ciklum\target\ciklum-test-1.0-SNAPSHOT.jar
+[INFO]
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ ciklum-test ---
+[INFO] Installing C:\ciklum\target\ciklum-test-1.0-SNAPSHOT.jar to C:\Users\Vadym_Honcharenko\.m2\repository\ciklum-test\ciklum-test\1.0-SNAPSHOT\ciklum-test-1.0-SNAPSHOT.jar
+[INFO] Installing C:\ciklum\pom.xml to C:\Users\Vadym_Honcharenko\.m2\repository\ciklum-test\ciklum-test\1.0-SNAPSHOT\ciklum-test-1.0-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.062 s
+[INFO] Finished at: 2020-07-03T19:50:42-04:00
+[INFO] ------------------------------------------------------------------------
+
+C:\ciklum>mvn test -DsiteUrl=https://www.dbzeitarbeit.de/ -DbrowserName="googlechrome"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ----------------------< ciklum-test:ciklum-test >-----------------------
+[INFO] Building ciklum-test 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ciklum-test ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\ciklum\src\main\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:2.5.1:compile (default-compile) @ ciklum-test ---
+[INFO] No sources to compile
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ciklum-test ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.5.1:testCompile (default-testCompile) @ ciklum-test ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-surefire-plugin:2.18:test (default-test) @ ciklum-test ---
+[INFO] Surefire report directory: C:\ciklum\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running RunTheTest
+@Automated
+Feature: As an applicant I want to find all developer positions in Frankfurt am Main, so that I can apply for a position.
+  Search page is used for the search
+  Correct amounts of open positions are found
+  Click on a position result leads to a subpage, which displays the correct job title
+  On the subpage the button `"Jetzt Bewerben"` can be clicked
+  Reveals the application e-mail `"dbz-bewerbung@deutschebahn.com"`
+Starting ChromeDriver 71.0.3578.80 (2ac50e7249fbd55e6f517a28131605c9fb9fe897) on port 43860
+Only local connections are allowed.
+
+  @Automated
+  Scenario Outline:                                                                                           # stories/SearchPage.feature:25
+    Given The user has opened a website as "desktop"                                                          # CommonStepDef.theUserHasOpenedWebSite(String)
+    And The user has navigated to a search page                                                               # CommonStepDef.theUserHasNavigatedToSearchPage()
+    When The user has entered the desired position "Java Developer"                                           # SearchPageStepDef.theUserHasEnteredThePosition(String)
+    And The user has selected the desired location "Frankfurt (Main)"                                         # SearchPageStepDef.theUserHasEnteredTheLocation(String)
+    Then The system should display at least "1" of opened positions                                           # SearchPageStepDef.theSystemShouldDisplayTheCorrectAmountOfOpenedPositions(Integer)
+    When The user has clicked on the first found result with the text "Java Developer" and "Frankfurt (Main)" # SearchPageStepDef.theUserHasClickedOnTheFirstFoundResult(String,String)
+    Then The system should open the new page "zeitarbeit-de/bewerber/jobs-deutsche-bahn"                      # SearchPageStepDef.theSystemShouldOpenTheNewPage(String)
+    And The title should contain the "Java Developer" and "Frankfurt (Main)"                                  # SearchPageStepDef.theTitleShouldContainThePosition(String,String)
+    When The user has clicked the apply button                                                                # SearchPageStepDef.theUserHasClickedTheButton()
+    Then The system should reveals the application e-mail "dbz-bewerbung@deutschebahn.com"                    # SearchPageStepDef.theSystemShouldRevealsTheApplicationEmail(String)
+
+  @Automated
+  Scenario Outline:                                                                                                   # stories/SearchPage.feature:26
+    Given The user has opened a website as "tablet"                                                                   # CommonStepDef.theUserHasOpenedWebSite(String)
+    And The user has navigated to a search page                                                                       # CommonStepDef.theUserHasNavigatedToSearchPage()
+    When The user has entered the desired position "React Native Developer"                                           # SearchPageStepDef.theUserHasEnteredThePosition(String)
+    And The user has selected the desired location "Frankfurt (Main)"                                                 # SearchPageStepDef.theUserHasEnteredTheLocation(String)
+    Then The system should display at least "1" of opened positions                                                   # SearchPageStepDef.theSystemShouldDisplayTheCorrectAmountOfOpenedPositions(Integer)
+    When The user has clicked on the first found result with the text "React Native Developer" and "Frankfurt (Main)" # SearchPageStepDef.theUserHasClickedOnTheFirstFoundResult(String,String)
+    Then The system should open the new page "zeitarbeit-de/bewerber/jobs-deutsche-bahn"                              # SearchPageStepDef.theSystemShouldOpenTheNewPage(String)
+    And The title should contain the "React Native Developer" and "Frankfurt (Main)"                                  # SearchPageStepDef.theTitleShouldContainThePosition(String,String)
+    When The user has clicked the apply button                                                                        # SearchPageStepDef.theUserHasClickedTheButton()
+    Then The system should reveals the application e-mail "dbz-bewerbung@deutschebahn.com"                            # SearchPageStepDef.theSystemShouldRevealsTheApplicationEmail(String)
+
+2 Scenarios (2 passed)
+20 Steps (20 passed)
+0m25.556s
+
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.931 sec - in RunTheTest
+
+Results :
+
+
+
+
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  28.940 s
+[INFO] Finished at: 2020-07-03T19:51:35-04:00
+[INFO] ------------------------------------------------------------------------
+
+C:\ciklum>
