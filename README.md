@@ -39,3 +39,17 @@ Other options (ie / chrome / firefox / safari):
 ```
 > mvn test -DsiteUrl=https://www.dbzeitarbeit.de -DbrowserName="safari"
 ```
+
+### To be able to see the test report, just run the following maven commands:
+
+# Convert .xml reports into .html report
+```
+mvn surefire-report:report-only
+```
+
+# Put the CSS and images where they need to be 
+```
+mvn site -DgenerateReports=false
+```
+
+Test report will be generated in target folder - /target/site/surefire-report.html
